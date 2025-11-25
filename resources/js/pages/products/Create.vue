@@ -22,8 +22,12 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+const props = defineProps({
+    newCode: String,
+});
+
 const form = useForm({
-    kode_barang: '',
+    kode_barang: props.newCode,
     nama_barang: '',
     satuan: '',
     stock_awal: '',
@@ -50,6 +54,7 @@ const handleSubmit = () => {
                         v-model="form.kode_barang"
                         type="text"
                         placeholder="Kode Barang"
+                        readonly
                     />
                     <div
                         class="text-sm text-red-600"

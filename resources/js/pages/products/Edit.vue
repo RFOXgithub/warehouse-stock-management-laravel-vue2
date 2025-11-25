@@ -60,6 +60,7 @@ const handleSubmit = () => {
                         v-model="form.kode_barang"
                         type="text"
                         placeholder="Kode Barang"
+                        readonly
                     />
                     <div
                         class="text-sm text-red-600"

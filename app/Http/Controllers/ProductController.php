@@ -16,7 +16,13 @@ class ProductController extends Controller
 
     public function create()
     {
-        return Inertia::render('products/Create', []);
+        $lastProduct = Product::orderBy('item_id', 'desc')->first();
+
+        $number = intval(substr($lastProduct?->kode_barang ?? 'BRG-000', 4)) + 1;
+
+        $newCode = 'BRG-' . str_pad($number, 3, '0', STR_PAD_LEFT);
+
+        return Inertia::render('products/Create', ['newCode' => $newCode]);
     }
 
     public function store(Request $request)
