@@ -15,18 +15,28 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 
+interface Product {
+    item_id: number;
+    kode_barang: string;
+    nama_barang: string;
+    satuan: string;
+    stock_awal: number;
+}
+
+const props = defineProps<{ product: Product }>();
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Create a Product',
-        href: '/products/create',
+        title: 'Edit a Product',
+        href: `/products/${props.product.item_id}/edit`,
     },
 ];
 
 const form = useForm({
-    kode_barang: '',
-    nama_barang: '',
-    satuan: '',
-    stock_awal: '',
+    kode_barang: props.product.kode_barang,
+    nama_barang: props.product.nama_barang,
+    satuan: props.product.satuan,
+    stock_awal: props.product.stock_awal,
 });
 
 const handleSubmitLog = () => {
@@ -34,12 +44,12 @@ const handleSubmitLog = () => {
 };
 
 const handleSubmit = () => {
-    form.post('/products');
+    form.put(`/products/${props.product.item_id}`);
 };
 </script>
 
 <template>
-    <Head title="Create a Product" />
+    <Head title="Edit a Product" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-4">
@@ -112,7 +122,7 @@ const handleSubmit = () => {
                     class="mt-8 ml-auto block"
                     type="submit"
                     :disabled="form.processing"
-                    >Create a Product</Button
+                    >Edit a Product</Button
                 >
             </form>
         </div>

@@ -1,68 +1,46 @@
 <script setup lang="ts">
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import Button from '@/components/ui/button/Button.vue';
 import {
     Table,
     TableBody,
     TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
 } from '@/components/ui/table/';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import { Check } from 'lucide-vue-next';
+
+interface Product {
+    item_id: number;
+    kode_barang: string;
+    nama_barang: string;
+    satuan: string;
+    stock_awal: number;
+}
+
+interface Props {
+    products: Product[];
+}
+
+const handleDelete = (item_id: number) => {
+    if (confirm('Do you want to delete the product?')) {
+        router.delete(`/products/${item_id}`);
+    }
+};
+
+const props = defineProps<Props>();
+
+const page = usePage();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Products',
         href: '/products',
-    },
-];
-
-const invoices = [
-    {
-        invoice: 'INV001',
-        paymentStatus: 'Paid',
-        totalAmount: '$250.00',
-        paymentMethod: 'Credit Card',
-    },
-    {
-        invoice: 'INV002',
-        paymentStatus: 'Pending',
-        totalAmount: '$150.00',
-        paymentMethod: 'PayPal',
-    },
-    {
-        invoice: 'INV003',
-        paymentStatus: 'Unpaid',
-        totalAmount: '$350.00',
-        paymentMethod: 'Bank Transfer',
-    },
-    {
-        invoice: 'INV004',
-        paymentStatus: 'Paid',
-        totalAmount: '$450.00',
-        paymentMethod: 'Credit Card',
-    },
-    {
-        invoice: 'INV005',
-        paymentStatus: 'Paid',
-        totalAmount: '$550.00',
-        paymentMethod: 'PayPal',
-    },
-    {
-        invoice: 'INV006',
-        paymentStatus: 'Pending',
-        totalAmount: '$200.00',
-        paymentMethod: 'Bank Transfer',
-    },
-    {
-        invoice: 'INV007',
-        paymentStatus: 'Unpaid',
-        totalAmount: '$300.00',
-        paymentMethod: 'Credit Card',
     },
 ];
 </script>
@@ -72,37 +50,54 @@ const invoices = [
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-4">
+            <div v-if="$page.props.flash?.message" class="alert">
+                <Alert class="mb-6 bg-green-900">
+                    <Check />
+                    <AlertTitle>Notification!</AlertTitle>
+                    <AlertDescription>
+                        {{ $page.props.flash.message }}
+                    </AlertDescription>
+                </Alert>
+            </div>
             <Link href="/products/create"><Button>Add Product</Button></Link>
         </div>
 
         <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
+            <TableCaption>A list of products.</TableCaption>
             <TableHeader>
                 <TableRow>
-                    <TableHead class="w-[100px]"> Invoice </TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Method</TableHead>
-                    <TableHead class="text-right"> Amount </TableHead>
+                    <TableHead> Kode Barang </TableHead>
+                    <TableHead>Nama Barang</TableHead>
+                    <TableHead>Satuan</TableHead>
+                    <TableHead> Stock Awal </TableHead>
+                    <TableHead class="text-center"> Action </TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
-                <TableRow v-for="invoice in invoices" :key="invoice.invoice">
+                <TableRow
+                    v-for="product in props.products"
+                    :key="product.item_id"
+                >
                     <TableCell class="font-medium">
-                        {{ invoice.invoice }}
+                        {{ product.kode_barang }}
                     </TableCell>
-                    <TableCell>{{ invoice.paymentStatus }}</TableCell>
-                    <TableCell>{{ invoice.paymentMethod }}</TableCell>
-                    <TableCell class="text-right">
-                        {{ invoice.totalAmount }}
+                    <TableCell>{{ product.nama_barang }}</TableCell>
+                    <TableCell>{{ product.satuan }}</TableCell>
+                    <TableCell>
+                        {{ product.stock_awal }}
+                    </TableCell>
+                    <TableCell class="space-x-2 text-center">
+                        <Link :href="`/products/${product.item_id}/edit`"
+                            ><Button class="bg-blue-400">Edit</Button></Link
+                        >
+                        <Button
+                            class="bg-red-400"
+                            @click="handleDelete(product.item_id)"
+                            >Delete</Button
+                        >
                     </TableCell>
                 </TableRow>
             </TableBody>
-            <TableFooter>
-                <TableRow>
-                    <TableCell colspan="3"> Total </TableCell>
-                    <TableCell class="text-right"> $2,500.00 </TableCell>
-                </TableRow>
-            </TableFooter>
         </Table>
     </AppLayout>
 </template>
