@@ -11,10 +11,16 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard} from '@/routes';
+import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, Package } from 'lucide-vue-next';
+import {
+    BookOpen,
+    CircleChevronRight,
+    Folder,
+    LayoutGrid,
+    Package,
+} from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -27,6 +33,11 @@ const mainNavItems: NavItem[] = [
         title: 'Master Barang',
         href: '/products',
         icon: Package,
+    },
+    {
+        title: 'Barang Masuk',
+        href: '/barangmasuk',
+        icon: CircleChevronRight,
     },
 ];
 
