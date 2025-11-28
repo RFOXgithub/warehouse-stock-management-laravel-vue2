@@ -59,7 +59,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                     </AlertDescription>
                 </Alert>
             </div>
-            <Link href="/barangmasuk/create"><Button>Add Barang Masuk</Button></Link>
+            <Link href="/barangmasuk/create"><Button>Add Incoming Product</Button></Link>
         </div>
 
         <Table>
