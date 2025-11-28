@@ -18,7 +18,6 @@ Route::get('dashboard', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
@@ -26,6 +25,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
     Route::get('/barangmasuk', [BarangMasukController::class, 'barangmasuk'])->name('barangmasuk.index');
     Route::get('/barangmasuk/create', [BarangMasukController::class, 'create'])->name('barangmasuk.create');
+    Route::post('/barangmasuk', [BarangMasukController::class, 'store'])->name('barangmasuk.store');
+    Route::delete('/barangmasuk/{product}', [BarangMasukController::class, 'destroy'])->name('barangmasuk.destroy');
+    Route::get('/barangmasuk/{product}/edit', [BarangMasukController::class, 'edit'])->name('barangmasuk.edit');
+    Route::put('/barangmasuk/{product}', [BarangMasukController::class, 'update'])->name('barangmasuk.update');
 });
 
 require __DIR__ . '/settings.php';
