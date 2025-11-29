@@ -3,6 +3,7 @@
 use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BarangMasukController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/barangkeluar/{product}/edit', [BarangKeluarController::class, 'edit'])->name('barangkeluar.edit');
     Route::put('/barangkeluar/{product}', [BarangKeluarController::class, 'update'])->name('barangkeluar.update');
     Route::delete('/barangkeluar/{product}', [BarangKeluarController::class, 'destroy'])->name('barangkeluar.destroy');
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 });
 
 require __DIR__ . '/settings.php';

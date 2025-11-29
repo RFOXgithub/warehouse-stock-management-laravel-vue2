@@ -72,7 +72,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <TableRow>
                     <TableHead>Product</TableHead>
                     <TableHead>Date</TableHead>
-                    <TableHead>Outgoing Quantity</TableHead>
+                    <TableHead>Outgoing Stock</TableHead>
                     <TableHead> Description</TableHead>
                     <TableHead class="text-center"> Action </TableHead>
                 </TableRow>

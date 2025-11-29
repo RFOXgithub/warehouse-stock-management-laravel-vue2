@@ -166,12 +166,12 @@ watch(date, (val) => {
                     </Popover>
                 </div>
                 <div class="space-y-2">
-                    <Label for="jumlahkeluar">Outgoing Quantity</Label>
+                    <Label for="jumlahkeluar">Outgoing Stock</Label>
                     <Input
                         v-model="form.jumlah_keluar"
                         type="number"
                         min="1"
-                        placeholder="Outgoing Quantity"
+                        placeholder="Outgoing Stock"
                     />
                     <div
                         class="text-sm text-red-600"
