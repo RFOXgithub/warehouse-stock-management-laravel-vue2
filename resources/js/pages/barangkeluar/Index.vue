@@ -15,21 +15,23 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { Check } from 'lucide-vue-next';
 
-interface Product {
-    item_id: number;
+interface BarangKeluar {
+    id: number;
     kode_barang: string;
     nama_barang: string;
-    satuan: string;
-    stock_awal: number;
+    item_id: number;
+    tanggal: Date;
+    jumlah_keluar: number;
+    keterangan: string;
 }
 
 interface Props {
-    products: Product[];
+    barangkeluar: BarangKeluar[];
 }
 
-const handleDelete = (item_id: number) => {
-    if (confirm('Do you want to delete the product?')) {
-        router.delete(`/products/${item_id}`);
+const handleDelete = (id: number) => {
+    if (confirm('Do you want to delete the outgoing product?')) {
+        router.delete(`/barangkeluar/${id}`);
     }
 };
 
@@ -39,14 +41,14 @@ const page = usePage();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Products',
-        href: '/products',
+        title: 'Outgoing Products',
+        href: '/barangkeluar',
     },
 ];
 </script>
 
 <template>
-    <Head title="Products" />
+    <Head title="Outgoing Products" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-4">
@@ -59,40 +61,42 @@ const breadcrumbs: BreadcrumbItem[] = [
                     </AlertDescription>
                 </Alert>
             </div>
-            <Link href="/products/create"><Button>Add Product</Button></Link>
+            <Link href="/barangkeluar/create"
+                ><Button>Add Outgoing Product</Button></Link
+            >
         </div>
 
         <Table>
-            <TableCaption>A list of products.</TableCaption>
+            <TableCaption>A list of outgoing products.</TableCaption>
             <TableHeader>
                 <TableRow>
-                    <TableHead> Product Code </TableHead>
-                    <TableHead>Product Name</TableHead>
-                    <TableHead>Unit</TableHead>
-                    <TableHead> Opening Stock </TableHead>
+                    <TableHead>Product</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Outgoing Quantity</TableHead>
+                    <TableHead> Description</TableHead>
                     <TableHead class="text-center"> Action </TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
                 <TableRow
-                    v-for="product in props.products"
+                    v-for="product in props.barangkeluar"
                     :key="product.item_id"
                 >
                     <TableCell class="font-medium">
-                        {{ product.kode_barang }}
+                        {{ product.kode_barang }} - {{ product.nama_barang }}
                     </TableCell>
-                    <TableCell>{{ product.nama_barang }}</TableCell>
-                    <TableCell>{{ product.satuan }}</TableCell>
+                    <TableCell>{{ product.tanggal }}</TableCell>
+                    <TableCell>{{ product.jumlah_keluar }}</TableCell>
                     <TableCell>
-                        {{ product.stock_awal }}
+                        {{ product.keterangan }}
                     </TableCell>
                     <TableCell class="space-x-2 text-center">
-                        <Link :href="`/products/${product.item_id}/edit`"
+                        <Link :href="`/barangkeluar/${product.id}/edit`"
                             ><Button class="bg-blue-400">Edit</Button></Link
                         >
                         <Button
                             class="bg-red-400"
-                            @click="handleDelete(product.item_id)"
+                            @click="handleDelete(product.id)"
                             >Delete</Button
                         >
                     </TableCell>

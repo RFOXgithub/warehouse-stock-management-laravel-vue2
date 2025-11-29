@@ -18,6 +18,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { cn } from '@/lib/utils';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import type { DateValue } from '@internationalized/date';
@@ -27,7 +28,7 @@ import {
     today,
 } from '@internationalized/date';
 import { CalendarIcon } from 'lucide-vue-next';
-import { computed, Ref, ref, watch } from 'vue';
+import { Ref, ref, watch } from 'vue';
 
 const defaultPlaceholder = today(getLocalTimeZone());
 const date = ref() as Ref<DateValue>;
@@ -37,37 +38,28 @@ const df = new DateFormatter('en-US', {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Edit a Incoming Product',
-        href: '/barangmasuk/edit',
+        title: 'Create a Outgoing Product',
+        href: '/barangkeluar/create',
     },
 ];
 
-const props = defineProps<{
-    product: {
-        id: number;
-        item_id: number;
-        kode_barang: string;
-        nama_barang: string;
-        tanggal: string;
-        jumlah_masuk: number;
-        keterangan: string;
-    };
-    barangmasukops: Array<{
-        item_id: number;
-        kode_barang: string;
-        nama_barang: string;
-    }>;
-}>();
+interface Product {
+    item_id: number;
+    kode_barang: string;
+    nama_barang: string;
+}
+
+interface Props {
+    product: Product[];
+}
+
+const props = defineProps<Props>();
 
 const form = useForm({
-    item_id: props.product.item_id,
+    item_id: '',
     tanggal: '',
-    jumlah_masuk: props.product.jumlah_masuk,
-    keterangan: props.product.keterangan,
-});
-
-const selectedProduct = computed(() => {
-    return props.barangmasukops.find((item) => item.item_id === form.item_id);
+    jumlah_keluar: '',
+    keterangan: '',
 });
 
 const handleSubmitLog = () => {
@@ -75,7 +67,7 @@ const handleSubmitLog = () => {
 };
 
 const handleSubmit = () => {
-    form.put(`/barangmasuk/${props.product.id}`);
+    form.post('/barangkeluar');
 };
 
 watch(date, (val) => {
@@ -88,37 +80,22 @@ watch(date, (val) => {
 </script>
 
 <template>
-    <Head title="Edit a Incoming Product" />
+    <Head title="Create a Outgoing Product" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-4">
             <form @submit.prevent="handleSubmit" class="w-8/12 space-y-4">
                 <div class="space-y-2">
                     <Label for="kodebarang">Product</Label>
-
                     <Select v-model="form.item_id">
                         <SelectTrigger class="w-8/8">
-                            <SelectValue>
-                                <template v-if="selectedProduct">
-                                    {{ selectedProduct.item_id }} -
-                                    {{ selectedProduct.kode_barang }} -
-                                    {{ selectedProduct.nama_barang }}
-                                </template>
-
-                                <template v-else>
-                                    {{ props.product.item_id }} -
-                                    {{ props.product.kode_barang }} -
-                                    {{ props.product.nama_barang }}</template
-                                >
-                            </SelectValue>
+                            <SelectValue placeholder="Product" />
                         </SelectTrigger>
-
                         <SelectContent>
                             <SelectGroup>
                                 <SelectLabel>Product</SelectLabel>
-
                                 <SelectItem
-                                    v-for="item in props.barangmasukops"
+                                    v-for="item in props.product"
                                     :key="item.item_id"
                                     :value="item.item_id"
                                 >
@@ -130,30 +107,29 @@ watch(date, (val) => {
                         </SelectContent>
                     </Select>
                 </div>
-
                 <div class="space-y-2">
                     <Label for="tanggal">Date</Label>
-
                     <Popover v-slot="{ close }">
                         <PopoverTrigger as-child>
                             <Button
                                 variant="outline"
-                                class="w-full justify-start text-left font-normal"
+                                :class="
+                                    cn(
+                                        'w-8/8 justify-start text-left font-normal',
+                                        !date && 'text-muted-foreground',
+                                    )
+                                "
                             >
-                                <CalendarIcon class="mr-2" />
-
+                                <CalendarIcon />
                                 {{
                                     date
                                         ? df.format(
                                               date.toDate(getLocalTimeZone()),
                                           )
-                                        : df.format(
-                                              new Date(props.product.tanggal),
-                                          )
+                                        : 'Date'
                                 }}
                             </Button>
                         </PopoverTrigger>
-
                         <PopoverContent class="w-auto p-0" align="start">
                             <Calendar
                                 v-model="date"
@@ -166,18 +142,18 @@ watch(date, (val) => {
                     </Popover>
                 </div>
                 <div class="space-y-2">
-                    <Label for="jumlahmasuk">Incoming Quantity</Label>
+                    <Label for="jumlahkeluar">Outgoing Quantity</Label>
                     <Input
-                        v-model="form.jumlah_masuk"
+                        v-model="form.jumlah_keluar"
                         type="number"
                         min="1"
-                        placeholder="Incoming Quantity"
+                        placeholder="Outgoing Quantity"
                     />
                     <div
                         class="text-sm text-red-600"
-                        v-if="form.errors.jumlah_masuk"
+                        v-if="form.errors.jumlah_keluar"
                     >
-                        {{ form.errors.jumlah_masuk }}
+                        {{ form.errors.jumlah_keluar }}
                     </div>
                 </div>
                 <div class="space-y-4">
@@ -198,7 +174,7 @@ watch(date, (val) => {
                     class="mt-8 ml-auto block"
                     type="submit"
                     :disabled="form.processing"
-                    >Update a Incoming Product</Button
+                    >Create a Outgoing Product</Button
                 >
             </form>
         </div>

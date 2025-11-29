@@ -30,7 +30,7 @@ class BarangMasukController extends Controller
         $data = $request->validate([
             'item_id' => 'required|numeric',
             'tanggal' => 'required|date',
-            'jumlah_masuk' => 'required|numeric|min:0',
+            'jumlah_masuk' => 'required|numeric|min:1',
             'keterangan' => 'required|string|max:255',
         ]);
 
@@ -65,7 +65,7 @@ class BarangMasukController extends Controller
         $request->validate([
             'item_id' => 'required|numeric',
             'tanggal' => 'required|date',
-            'jumlah_masuk' => 'required|numeric|min:0',
+            'jumlah_masuk' => 'required|numeric|min:1',
             'keterangan' => 'required|string|max:255',
         ]);
 

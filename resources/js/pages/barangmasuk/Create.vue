@@ -38,8 +38,8 @@ const df = new DateFormatter('en-US', {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Create a Product',
-        href: '/products/create',
+        title: 'Create a Incoming Product',
+        href: '/barangmasuk/create',
     },
 ];
 
@@ -80,20 +80,20 @@ watch(date, (val) => {
 </script>
 
 <template>
-    <Head title="Create a Barang Masuk" />
+    <Head title="Create a Incoming Product" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-4">
             <form @submit.prevent="handleSubmit" class="w-8/12 space-y-4">
                 <div class="space-y-2">
-                    <Label for="kodebarang">Kode Barang</Label>
+                    <Label for="kodebarang">Product</Label>
                     <Select v-model="form.item_id">
                         <SelectTrigger class="w-8/8">
-                            <SelectValue placeholder="Kode Barang" />
+                            <SelectValue placeholder="Product" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                <SelectLabel>Kode Barang</SelectLabel>
+                                <SelectLabel>Product</SelectLabel>
                                 <SelectItem
                                     v-for="item in props.product"
                                     :key="item.item_id"
@@ -108,7 +108,7 @@ watch(date, (val) => {
                     </Select>
                 </div>
                 <div class="space-y-2">
-                    <Label for="tanggal">Tanggal</Label>
+                    <Label for="tanggal">Date</Label>
                     <Popover v-slot="{ close }">
                         <PopoverTrigger as-child>
                             <Button
@@ -126,7 +126,7 @@ watch(date, (val) => {
                                         ? df.format(
                                               date.toDate(getLocalTimeZone()),
                                           )
-                                        : 'Tanggal'
+                                        : 'Date'
                                 }}
                             </Button>
                         </PopoverTrigger>
@@ -142,12 +142,12 @@ watch(date, (val) => {
                     </Popover>
                 </div>
                 <div class="space-y-2">
-                    <Label for="jumlahmasuk">Jumlah Masuk</Label>
+                    <Label for="jumlahmasuk">Incoming Quantity</Label>
                     <Input
                         v-model="form.jumlah_masuk"
                         type="number"
-                        min="0"
-                        placeholder="Jumlah Masuk"
+                        min="1"
+                        placeholder="Incoming Quantity"
                     />
                     <div
                         class="text-sm text-red-600"
@@ -157,11 +157,11 @@ watch(date, (val) => {
                     </div>
                 </div>
                 <div class="space-y-4">
-                    <Label for="keterangan">Keterangan</Label>
+                    <Label for="keterangan">Description</Label>
                     <Input
                         v-model="form.keterangan"
                         type="text"
-                        placeholder="Keterangan"
+                        placeholder="Description"
                     />
                     <div
                         class="text-sm text-red-600"

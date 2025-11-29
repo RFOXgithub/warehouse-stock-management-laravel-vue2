@@ -37,8 +37,8 @@ const df = new DateFormatter('en-US', {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Edit a Incoming Product',
-        href: '/barangmasuk/edit',
+        title: 'Edit a Outgoing Product',
+        href: '/barangkeluar/edit',
     },
 ];
 
@@ -49,10 +49,10 @@ const props = defineProps<{
         kode_barang: string;
         nama_barang: string;
         tanggal: string;
-        jumlah_masuk: number;
+        jumlah_keluar: number;
         keterangan: string;
     };
-    barangmasukops: Array<{
+    barangkeluarops: Array<{
         item_id: number;
         kode_barang: string;
         nama_barang: string;
@@ -62,12 +62,12 @@ const props = defineProps<{
 const form = useForm({
     item_id: props.product.item_id,
     tanggal: '',
-    jumlah_masuk: props.product.jumlah_masuk,
+    jumlah_keluar: props.product.jumlah_keluar,
     keterangan: props.product.keterangan,
 });
 
 const selectedProduct = computed(() => {
-    return props.barangmasukops.find((item) => item.item_id === form.item_id);
+    return props.barangkeluarops.find((item) => item.item_id === form.item_id);
 });
 
 const handleSubmitLog = () => {
@@ -75,7 +75,7 @@ const handleSubmitLog = () => {
 };
 
 const handleSubmit = () => {
-    form.put(`/barangmasuk/${props.product.id}`);
+    form.put(`/barangkeluar/${props.product.id}`);
 };
 
 watch(date, (val) => {
@@ -88,7 +88,7 @@ watch(date, (val) => {
 </script>
 
 <template>
-    <Head title="Edit a Incoming Product" />
+    <Head title="Edit a Outgoing Product" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-4">
@@ -118,7 +118,7 @@ watch(date, (val) => {
                                 <SelectLabel>Product</SelectLabel>
 
                                 <SelectItem
-                                    v-for="item in props.barangmasukops"
+                                    v-for="item in props.barangkeluarops"
                                     :key="item.item_id"
                                     :value="item.item_id"
                                 >
@@ -166,18 +166,18 @@ watch(date, (val) => {
                     </Popover>
                 </div>
                 <div class="space-y-2">
-                    <Label for="jumlahmasuk">Incoming Quantity</Label>
+                    <Label for="jumlahkeluar">Outgoing Quantity</Label>
                     <Input
-                        v-model="form.jumlah_masuk"
+                        v-model="form.jumlah_keluar"
                         type="number"
                         min="1"
-                        placeholder="Incoming Quantity"
+                        placeholder="Outgoing Quantity"
                     />
                     <div
                         class="text-sm text-red-600"
-                        v-if="form.errors.jumlah_masuk"
+                        v-if="form.errors.jumlah_keluar"
                     >
-                        {{ form.errors.jumlah_masuk }}
+                        {{ form.errors.jumlah_keluar }}
                     </div>
                 </div>
                 <div class="space-y-4">
@@ -198,7 +198,7 @@ watch(date, (val) => {
                     class="mt-8 ml-auto block"
                     type="submit"
                     :disabled="form.processing"
-                    >Update a Incoming Product</Button
+                    >Update a Outgoing Product</Button
                 >
             </form>
         </div>

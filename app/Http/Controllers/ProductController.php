@@ -31,7 +31,7 @@ class ProductController extends Controller
             'kode_barang' => 'required|string|',
             'nama_barang' => 'required|string|max:255',
             'satuan' => 'required|string|',
-            'stock_awal' => 'required|numeric|min:0'
+            'stock_awal' => 'required|numeric|min:1'
         ]);
 
         Product::create($data);
@@ -49,7 +49,7 @@ class ProductController extends Controller
             'kode_barang' => 'required|string|',
             'nama_barang' => 'required|string|max:255',
             'satuan' => 'required|string|',
-            'stock_awal' => 'required|numeric|min:0'
+            'stock_awal' => 'required|numeric|min:1'
         ]);
 
         $product->update([

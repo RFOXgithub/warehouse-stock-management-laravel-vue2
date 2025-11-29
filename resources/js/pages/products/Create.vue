@@ -49,11 +49,11 @@ const handleSubmit = () => {
         <div class="p-4">
             <form @submit.prevent="handleSubmit" class="w-8/12 space-y-4">
                 <div class="space-y-2">
-                    <Label for="kodebarang">Kode Barang</Label>
+                    <Label for="kodebarang">Product Code</Label>
                     <Input
                         v-model="form.kode_barang"
                         type="text"
-                        placeholder="Kode Barang"
+                        placeholder="Product Code"
                         readonly
                     />
                     <div
@@ -64,11 +64,11 @@ const handleSubmit = () => {
                     </div>
                 </div>
                 <div class="space-y-2">
-                    <Label for="namabarang">Nama Barang</Label>
+                    <Label for="namabarang">Product Name</Label>
                     <Input
                         v-model="form.nama_barang"
                         type="text"
-                        placeholder="Nama Barang"
+                        placeholder="Product Name"
                     />
                     <div
                         class="text-sm text-red-600"
@@ -78,14 +78,14 @@ const handleSubmit = () => {
                     </div>
                 </div>
                 <div class="space-y-2">
-                    <Label for="satuan">Satuan</Label>
+                    <Label for="satuan">Unit</Label>
                     <Select v-model="form.satuan">
                         <SelectTrigger class="w-8/8">
-                            <SelectValue placeholder="Satuan" />
+                            <SelectValue placeholder="Unit" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                <SelectLabel>Satuan</SelectLabel>
+                                <SelectLabel>Unit</SelectLabel>
                                 <SelectItem value="pcs"> pcs </SelectItem>
                                 <SelectItem value="box"> box </SelectItem>
                                 <SelectItem value="kg"> kg </SelectItem>
@@ -99,12 +99,12 @@ const handleSubmit = () => {
                     </div>
                 </div>
                 <div class="space-y-4">
-                    <Label for="stockawal">Stock Awal</Label>
+                    <Label for="stockawal">Opening Stock</Label>
                     <Input
                         v-model="form.stock_awal"
                         type="number"
-                        min="0"
-                        placeholder="Stock Awal"
+                        min="1"
+                        placeholder="Opening Stock"
                     />
                     <div
                         class="text-sm text-red-600"

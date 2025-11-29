@@ -20,6 +20,8 @@ import {
     Folder,
     LayoutGrid,
     Package,
+    CircleChevronLeft,
+    NotepadText,
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
@@ -30,14 +32,24 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Master Barang',
+        title: 'Product Master',
         href: '/products',
         icon: Package,
     },
     {
-        title: 'Barang Masuk',
+        title: 'Incoming Product',
         href: '/barangmasuk',
         icon: CircleChevronRight,
+    },
+    {
+        title: 'Outgoing Product',
+        href: '/barangkeluar',
+        icon: CircleChevronLeft,
+    },
+    {
+        title: 'Report',
+        href: '/reports',
+        icon: NotepadText ,
     },
 ];
 
@@ -62,7 +74,7 @@ const footerNavItems: NavItem[] = [
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
                         <Link :href="dashboard()">
-                            <AppLogo />
+                        <AppLogo />
                         </Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>

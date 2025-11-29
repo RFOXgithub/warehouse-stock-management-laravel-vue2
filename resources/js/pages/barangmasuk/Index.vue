@@ -48,7 +48,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 </script>
 
 <template>
-    <Head title="Products" />
+    <Head title="Incoming Products" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-4">
@@ -71,9 +71,9 @@ const breadcrumbs: BreadcrumbItem[] = [
             <TableHeader>
                 <TableRow>
                     <TableHead>Product</TableHead>
-                    <TableHead>Tanggal</TableHead>
-                    <TableHead>Jumlah Masuk</TableHead>
-                    <TableHead> Keterangan</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Incoming Quantity</TableHead>
+                    <TableHead> Description</TableHead>
                     <TableHead class="text-center"> Action </TableHead>
                 </TableRow>
             </TableHeader>

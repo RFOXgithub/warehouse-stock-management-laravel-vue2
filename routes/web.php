@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BarangMasukController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/barangmasuk/{product}', [BarangMasukController::class, 'destroy'])->name('barangmasuk.destroy');
     Route::get('/barangmasuk/{product}/edit', [BarangMasukController::class, 'edit'])->name('barangmasuk.edit');
     Route::put('/barangmasuk/{product}', [BarangMasukController::class, 'update'])->name('barangmasuk.update');
+    Route::get('/barangkeluar', [BarangKeluarController::class, 'barangkeluar'])->name('barangkeluar.index');
+    Route::get('/barangkeluar/create', [BarangKeluarController::class, 'create'])->name('barangkeluar.create');
+    Route::post('/barangkeluar', [BarangKeluarController::class, 'store'])->name('barangkeluar.store');
+    Route::get('/barangkeluar/{product}/edit', [BarangKeluarController::class, 'edit'])->name('barangkeluar.edit');
+    Route::put('/barangkeluar/{product}', [BarangKeluarController::class, 'update'])->name('barangkeluar.update');
+    Route::delete('/barangkeluar/{product}', [BarangKeluarController::class, 'destroy'])->name('barangkeluar.destroy');
 });
 
 require __DIR__ . '/settings.php';
