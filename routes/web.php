@@ -38,6 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/barangkeluar/{product}', [BarangKeluarController::class, 'update'])->name('barangkeluar.update');
     Route::delete('/barangkeluar/{product}', [BarangKeluarController::class, 'destroy'])->name('barangkeluar.destroy');
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/filter', [ReportController::class, 'filter'])->name('reports.filter');
 });
 
 require __DIR__ . '/settings.php';

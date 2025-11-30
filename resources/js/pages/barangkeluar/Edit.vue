@@ -61,7 +61,7 @@ const props = defineProps<{
 
 const form = useForm({
     item_id: props.product.item_id,
-    tanggal: '',
+    tanggal: props.product.tanggal,
     jumlah_keluar: props.product.jumlah_keluar,
     keterangan: props.product.keterangan,
 });
@@ -92,7 +92,7 @@ watch(date, (val) => {
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-4">
-            <form @submit.prevent="handleSubmit" class="w-8/12 space-y-4">
+            <form @submit.prevent="handleSubmitLog" class="w-8/12 space-y-4">
                 <div class="space-y-2">
                     <Label for="kodebarang">Product</Label>
 

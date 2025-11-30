@@ -61,7 +61,7 @@ const props = defineProps<{
 
 const form = useForm({
     item_id: props.product.item_id,
-    tanggal: '',
+    tanggal: props.product.tanggal,
     jumlah_masuk: props.product.jumlah_masuk,
     keterangan: props.product.keterangan,
 });
