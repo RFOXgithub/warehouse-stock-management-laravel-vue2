@@ -10,7 +10,9 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::latest()->get();
+        $products = Product::orderByRaw('CAST(SUBSTRING(kode_barang, 5) AS UNSIGNED)')
+            ->get();
+
         return Inertia::render('products/Index', compact('products'));
     }
 

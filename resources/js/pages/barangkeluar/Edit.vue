@@ -92,7 +92,7 @@ watch(date, (val) => {
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-4">
-            <form @submit.prevent="handleSubmitLog" class="w-8/12 space-y-4">
+            <form @submit.prevent="handleSubmit" class="w-8/12 space-y-4">
                 <div class="space-y-2">
                     <Label for="kodebarang">Product</Label>
 
